@@ -1,0 +1,1031 @@
+@extends('layouts.app')
+
+@section('title', 'Semua Berita')
+
+@section('content')
+
+    <style>
+        :root {
+            --primary-blue: #06B6D4;
+            --primary-blue-dark: #0891B2;
+            --primary-blue-light: #22D3EE;
+            --accent-blue: #67E8F9;
+            --dark-bg: #0F172A;
+            --text-dark: #1E293B;
+            --text-gray: #64748B;
+            --bg-light: #F8FAFC;
+            --border-light: #E2E8F0;
+            --white: #FFFFFF;
+        }
+
+        /* All News Header */
+        .all-news-header-wrapper {
+            background: var(--dark-bg);
+            padding: 3.5rem 0;
+            position: relative;
+            border-bottom: 6px solid var(--primary-blue);
+            overflow: hidden;
+        }
+
+        .all-news-header-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .all-news-header-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(34, 211, 238, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .all-news-header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(6, 182, 212, 0.15);
+            padding: 0.6rem 1.5rem;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .header-icon-box {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-icon-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--primary-blue-light);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .header-icon-box:hover::before {
+            transform: translateY(0);
+        }
+
+        .header-icon-box svg {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-description {
+            font-size: 1.1rem;
+            color: #94A3B8;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* Search Bar in Header */
+        .header-search-wrapper {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .header-search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: white;
+            border: 3px solid rgba(6, 182, 212, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .header-search-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--text-dark);
+            outline: none;
+        }
+
+        .header-search-input::placeholder {
+            color: var(--text-gray);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .header-search-btn {
+            padding: 1rem 2.5rem;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-search-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--primary-blue-dark);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .header-search-btn span,
+        .header-search-btn svg {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-search-btn:hover::before {
+            transform: translateX(0);
+        }
+
+        .header-search-btn:hover {
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+        }
+
+        /* Content Wrapper */
+        .all-news-content {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        /* Filter & Control Panel */
+        .control-panel {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-left: 6px solid var(--primary-blue);
+            border-radius: 8px;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .control-row:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Category Filter Pills */
+        .category-filter {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .filter-label {
+            font-weight: 900;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .filter-number {
+            width: 28px;
+            height: 28px;
+            background: var(--primary-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 900;
+            border-radius: 4px;
+        }
+
+        .category-pills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+
+        .category-pill {
+            padding: 0.6rem 1.5rem;
+            border: 2px solid var(--text-gray);
+            background: white;
+            color: var(--text-gray);
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        .category-pill:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .category-pill.active {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Sort & View Controls */
+        .sort-view-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .view-btn {
+            width: 44px;
+            height: 44px;
+            border: 2px solid var(--text-gray);
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-gray);
+            border-radius: 6px;
+        }
+
+        .view-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .view-btn.active {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Results Info */
+        .results-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 3px solid var(--bg-light);
+        }
+
+        .results-text {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .results-count {
+            font-weight: 900;
+            color: var(--primary-blue);
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-grid.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        /* News Card */
+        .news-card {
+            background: white;
+            overflow: hidden;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-top: 4px solid var(--primary-blue);
+            border-radius: 8px;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(6, 182, 212, 0.25);
+        }
+
+        .news-card-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .news-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover .news-card-image {
+            transform: scale(1.15);
+        }
+
+        .news-card-badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: var(--primary-blue);
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.7rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 10;
+        }
+
+        .news-card-content {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .news-card-title {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            flex: 1;
+        }
+
+        .news-card-excerpt {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-weight: 600;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .news-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 1rem;
+            border-top: 2px solid var(--bg-light);
+            margin-top: auto;
+        }
+
+        .news-card-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .author-avatar-small {
+            width: 32px;
+            height: 32px;
+            object-fit: cover;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+        }
+
+        .author-name-small {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--text-dark);
+        }
+
+        .news-card-date {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: var(--text-gray);
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .date-icon {
+            width: 14px;
+            height: 14px;
+        }
+
+        /* List View Styles */
+        .news-grid.list-view .news-card {
+            flex-direction: row;
+            height: auto;
+        }
+
+        .news-grid.list-view .news-card-image-wrapper {
+            width: 350px;
+            height: 250px;
+            flex-shrink: 0;
+        }
+
+        .news-grid.list-view .news-card-content {
+            padding: 2rem;
+        }
+
+        .news-grid.list-view .news-card-title {
+            font-size: 1.5rem;
+            -webkit-line-clamp: 2;
+        }
+
+        .news-grid.list-view .news-card-excerpt {
+            -webkit-line-clamp: 3;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Pagination */
+        .pagination-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .pagination {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+        }
+
+        .pagination-link {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .pagination-link:hover {
+            background: var(--bg-light);
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .pagination-link.active {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+            color: white;
+            box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .pagination-link.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .pagination-dots {
+            color: var(--text-gray);
+            padding: 0 0.5rem;
+            font-weight: 900;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-top: 6px solid var(--primary-blue);
+            border-radius: 8px;
+        }
+
+        .empty-icon-box {
+            width: 120px;
+            height: 120px;
+            background: var(--bg-light);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-blue);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            border: 3px solid var(--border-light);
+        }
+
+        .empty-title {
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .empty-description {
+            font-size: 1rem;
+            color: var(--text-gray);
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .empty-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 2rem;
+            background: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 2px solid var(--primary-blue);
+            transition: all 0.3s ease;
+            border-radius: 6px;
+        }
+
+        .empty-btn:hover {
+            background: transparent;
+            color: var(--primary-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .news-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .all-news-header-wrapper {
+                padding: 3rem 0;
+            }
+
+            .header-title {
+                font-size: 2.5rem;
+            }
+
+            .news-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .news-grid.list-view .news-card {
+                flex-direction: column;
+            }
+
+            .news-grid.list-view .news-card-image-wrapper {
+                width: 100%;
+                height: 250px;
+            }
+
+            .control-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .category-filter {
+                width: 100%;
+            }
+
+            .sort-view-controls {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .all-news-header-wrapper {
+                padding: 2.5rem 0;
+            }
+
+            .all-news-header-container {
+                padding: 0 1.5rem;
+            }
+
+            .header-icon-box {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .header-title {
+                font-size: 2rem;
+            }
+
+            .header-description {
+                font-size: 1rem;
+            }
+
+            .all-news-content {
+                padding: 0 1.5rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .control-panel {
+                padding: 1.5rem;
+            }
+
+            .category-filter {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .category-pills {
+                width: 100%;
+            }
+
+            .results-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .all-news-header-container {
+                padding: 0 1rem;
+            }
+
+            .header-title {
+                font-size: 1.75rem;
+            }
+
+            .header-description {
+                font-size: 0.95rem;
+            }
+
+            .header-search-btn {
+                padding: 1rem 1.5rem;
+            }
+
+            .all-news-content {
+                padding: 0 1rem;
+            }
+
+            .control-panel {
+                padding: 1rem;
+            }
+
+            .news-card-content {
+                padding: 1.25rem;
+            }
+
+            .sort-view-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .stagger-1 {
+            animation-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            animation-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            animation-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            animation-delay: 0.4s;
+        }
+
+        .stagger-5 {
+            animation-delay: 0.5s;
+        }
+
+        .stagger-6 {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 8px 30px rgba(6, 182, 212, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 8px 30px rgba(6, 182, 212, 0.6);
+            }
+        }
+
+        .header-icon-box {
+            animation: pulse 3s ease-in-out infinite;
+        }
+    </style>
+
+    <!-- All News Header -->
+    <div class="all-news-header-wrapper">
+        <div class="all-news-header-container">
+            <!-- Header Badge -->
+            <div class="header-badge fade-in-up">
+                ⚡ EKSPLORASI BERITA
+            </div>
+
+            <!-- Header Icon -->
+            <div class="header-icon-box fade-in-up">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="50" height="50">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                </svg>
+            </div>
+
+            <!-- Header Title -->
+            <h1 class="header-title fade-in-up">SEMUA BERITA</h1>
+
+            <!-- Header Description -->
+            <p class="header-description fade-in-up">
+                Temukan berita terkini dan terpercaya dari berbagai kategori.
+                Selalu update dengan informasi terbaru seputar Palembang dan Sumatera Selatan.
+            </p>
+
+            <!-- Search Bar -->
+            <div class="header-search-wrapper fade-in-up">
+                <form action="{{ route('news.index') }}" method="GET" class="header-search-box">
+                    <input type="text" name="search" class="header-search-input"
+                        placeholder="Cari berita, topik, atau kategori..." value="{{ request('search') }}">
+                    <button type="submit" class="header-search-btn">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <span>CARI</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- All News Content -->
+    <div class="all-news-content">
+        <!-- Control Panel -->
+        <div class="control-panel fade-in-up">
+            <!-- Category Filter Row -->
+            <div class="control-row">
+                <div class="category-filter">
+                    <div class="filter-label">
+                        <span class="filter-number">01</span>
+                        <span>KATEGORI</span>
+                    </div>
+                    <div class="category-pills">
+                        <a href="{{ route('news.index') }}"
+                            class="category-pill {{ !request('category') ? 'active' : '' }}">
+                            SEMUA
+                        </a>
+                        @foreach (\App\Models\Categories::all() as $cat)
+                            <a href="{{ route('news.index', ['category' => $cat->slug]) }}"
+                                class="category-pill {{ request('category') == $cat->slug ? 'active' : '' }}">
+                                {{ strtoupper($cat->title) }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sort & View Row -->
+            <div class="control-row">
+                <div class="results-info">
+                    <span class="results-text">
+                        MENAMPILKAN <span class="results-count">{{ $news->total() }}</span> ARTIKEL
+                        @if (request('search'))
+                            UNTUK "<strong>{{ strtoupper(request('search')) }}</strong>"
+                        @endif
+                    </span>
+                </div>
+
+                <div class="sort-view-controls">
+                    <!-- View Toggle -->
+                    <div class="view-toggle">
+                        <button class="view-btn active" onclick="toggleView('grid')" title="Tampilan Grid">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path
+                                    d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zm8 0A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm-8 8A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm8 0A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3z" />
+                            </svg>
+                        </button>
+                        <button class="view-btn" onclick="toggleView('list')" title="Tampilan List">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Grid -->
+        @if ($news->count() > 0)
+            <div class="news-grid" id="newsGrid">
+                @foreach ($news as $index => $item)
+                    <a href="{{ route('news.show', $item->slug) }}"
+                        class="news-card fade-in-up stagger-{{ ($index % 6) + 1 }}">
+                        <div class="news-card-image-wrapper">
+                            <span class="news-card-badge">{{ strtoupper($item->category->title) }}</span>
+                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}"
+                                class="news-card-image">
+                        </div>
+                        <div class="news-card-content">
+                            <h3 class="news-card-title">{{ $item->title }}</h3>
+                            <div class="news-card-excerpt">{!! Str::limit(strip_tags($item->content), 150) !!}</div>
+                            <div class="news-card-meta">
+                                <div class="news-card-author">
+                                    <img src="{{ asset('storage/' . $item->author->avatar) }}"
+                                        alt="{{ $item->author->name }}" class="author-avatar-small">
+                                    <span class="author-name-small">{{ $item->author->name }}</span>
+                                </div>
+                                <div class="news-card-date">
+                                    <svg class="date-icon" fill="currentColor" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                    </svg>
+                                    <span>{{ \Carbon\Carbon::parse($item->created_at)->diffForHumans() }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-wrapper fade-in-up">
+                {{ $news->links('vendor.pagination.custom') }}
+            </div>
+        @else
+            <!-- Empty State -->
+            <div class="empty-state fade-in-up">
+                <div class="empty-icon-box">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" width="60" height="60">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <h2 class="empty-title">TIDAK ADA HASIL DITEMUKAN</h2>
+                <p class="empty-description">
+                    Maaf, kami tidak menemukan berita yang sesuai dengan pencarian Anda.
+                    Coba kata kunci lain atau jelajahi kategori yang tersedia.
+                </p>
+                <a href="{{ route('news.index') }}" class="empty-btn">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    <span>RESET PENCARIAN</span>
+                </a>
+            </div>
+        @endif
+    </div>
+
+    <script>
+        // Toggle View (Grid/List)
+        function toggleView(view) {
+            const newsGrid = document.getElementById('newsGrid');
+            const viewButtons = document.querySelectorAll('.view-btn');
+
+            viewButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.closest('.view-btn').classList.add('active');
+
+            if (view === 'list') {
+                newsGrid.classList.add('list-view');
+            } else {
+                newsGrid.classList.remove('list-view');
+            }
+        }
+
+        // Smooth scroll animation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('scroll')) {
+                document.querySelector('.all-news-content').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    </script>
+
+@endsection
