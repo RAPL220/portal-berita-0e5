@@ -6,15 +6,15 @@
 
     <style>
         :root {
-            --primary-blue: #06B6D4;
-            --primary-blue-dark: #0891B2;
-            --primary-blue-light: #22D3EE;
-            --accent-blue: #67E8F9;
-            --dark-bg: #0F172A;
-            --text-dark: #1E293B;
-            --text-gray: #64748B;
-            --bg-light: #F8FAFC;
-            --border-light: #E2E8F0;
+            --primary-red: #DC2626;
+            --primary-red-dark: #B91C1C;
+            --accent-orange: #F97316;
+            --dark-bg: #1F2937;
+            --darker-bg: #111827;
+            --text-dark: #1F2937;
+            --text-gray: #6B7280;
+            --bg-light: #F9FAFB;
+            --border-light: #E5E7EB;
             --white: #FFFFFF;
         }
 
@@ -53,14 +53,14 @@
         }
 
         .breadcrumb a {
-            color: var(--primary-blue);
+            color: var(--primary-red);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
         .breadcrumb a:hover {
-            color: var(--primary-blue-dark);
+            color: var(--primary-red-dark);
             text-decoration: underline;
         }
 
@@ -86,14 +86,14 @@
             background: white;
             padding: 3rem;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            border-top: 6px solid var(--primary-blue);
+            border-top: 6px solid var(--primary-red);
             border-radius: 8px;
         }
 
         /* Article Category Badge */
         .article-category-badge {
             display: inline-block;
-            background: var(--primary-blue);
+            background: var(--primary-red);
             color: white;
             padding: 0.5rem 1.5rem;
             font-size: 0.75rem;
@@ -101,7 +101,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 1.5rem;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
             border-radius: 4px;
         }
 
@@ -136,9 +136,9 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 3px solid var(--primary-blue);
+            border: 3px solid var(--primary-red);
             object-fit: cover;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
         }
 
         .author-name {
@@ -159,7 +159,7 @@
         .meta-icon {
             width: 20px;
             height: 20px;
-            color: var(--primary-blue);
+            color: var(--primary-red);
         }
 
         /* Featured Image */
@@ -190,7 +190,7 @@
             margin-top: 3rem;
             margin-bottom: 1.25rem;
             padding-bottom: 0.75rem;
-            border-bottom: 3px solid var(--primary-blue);
+            border-bottom: 3px solid var(--primary-red);
         }
 
         .article-content h3 {
@@ -221,7 +221,7 @@
         }
 
         .article-content blockquote {
-            border-left: 5px solid var(--primary-blue);
+            border-left: 5px solid var(--primary-red);
             background: var(--bg-light);
             padding: 1.5rem 2rem;
             margin: 2.5rem 0;
@@ -241,14 +241,14 @@
         }
 
         .article-content a {
-            color: var(--primary-blue);
+            color: var(--primary-red);
             text-decoration: underline;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
         .article-content a:hover {
-            color: var(--primary-blue-dark);
+            color: var(--primary-red-dark);
         }
 
         /* Share Section */
@@ -322,19 +322,19 @@
 
         /* Author Bio Card */
         .author-card {
-            background: linear-gradient(135deg, rgba(6, 182, 212, 0.05) 0%, rgba(8, 145, 178, 0.05) 100%);
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, rgba(185, 28, 28, 0.05) 100%);
             padding: 2.5rem;
             margin-top: 3rem;
             border: 3px solid var(--border-light);
-            border-left: 6px solid var(--primary-blue);
+            border-left: 6px solid var(--primary-red);
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             border-radius: 8px;
         }
 
         .author-card:hover {
-            border-color: var(--primary-blue);
-            box-shadow: 0 8px 30px rgba(6, 182, 212, 0.15);
+            border-color: var(--primary-red);
+            box-shadow: 0 8px 30px rgba(220, 38, 38, 0.15);
         }
 
         .author-card-title {
@@ -356,10 +356,10 @@
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            border: 4px solid var(--primary-blue);
+            border: 4px solid var(--primary-red);
             object-fit: cover;
             flex-shrink: 0;
-            box-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
         }
 
         .author-card-info {
@@ -390,7 +390,7 @@
             background: white;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             margin-bottom: 2rem;
-            border-top: 5px solid var(--primary-blue);
+            border-top: 5px solid var(--primary-red);
             border-radius: 8px;
             overflow: hidden;
         }
@@ -406,7 +406,7 @@
         .widget-icon {
             width: 38px;
             height: 38px;
-            background: var(--primary-blue);
+            background: var(--primary-red);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -446,7 +446,7 @@
 
         .sidebar-article:hover {
             padding-left: 0.5rem;
-            border-left: 4px solid var(--primary-blue);
+            border-left: 4px solid var(--primary-red);
         }
 
         .sidebar-article-image {
@@ -470,7 +470,7 @@
         }
 
         .sidebar-article-badge {
-            background: var(--primary-blue);
+            background: var(--primary-red);
             color: white;
             padding: 0.3rem 0.8rem;
             font-size: 0.65rem;
