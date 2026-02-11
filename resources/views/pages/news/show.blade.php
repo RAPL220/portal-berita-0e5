@@ -744,7 +744,7 @@
                     </div>
 
                     <!-- Share Section -->
-                    <div class="share-section">
+                    {{-- <div class="share-section">
                         <h3 class="share-title">Bagikan Artikel</h3>
                         <div class="share-buttons">
                             <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('news.show', $news->slug)) }}"
@@ -780,7 +780,7 @@
                                 Salin Link
                             </button>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <!-- Author Bio Card -->
                     <div class="author-card">

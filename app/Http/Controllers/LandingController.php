@@ -9,13 +9,15 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $articleBanners = ArticlesNews::all();
+        $articleBanners = ArticlesNews::orderBy('created_at', 'desc')
+            ->take(7)
+            ->get();
         $featureds = ArticlesNews::where('is_featured', true)->get();
         // ambil yang terbaru limit 4
         $news = ArticlesNews::orderBy('created_at', 'desc')->get()->take(4);
         $newsDownList = ArticlesNews::orderBy('created_at', 'desc')
             ->skip(4)
-            ->take(6)
+            ->take(15)
             ->get();
 
         $SecondaryDownlist = ArticlesNews::orderBy('created_at', 'desc')

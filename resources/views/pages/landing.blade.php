@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Fokus Kito')
+@section('title', 'PeopleAskNews Portal')
 
 @section('content')
 
@@ -802,12 +802,12 @@
     <div class="trending-bar">
         <div class="trending-container">
             <div class="trending-label">
-                🔥 TRENDING
+                TRENDING
             </div>
             <div class="trending-news">
                 <div class="swiper trending-swiper">
                     <div class="swiper-wrapper">
-                        @foreach ($news->take(5) as $index => $trending)
+                        @foreach ($featureds->take(6) as $index => $trending)
                             <div class="swiper-slide">
                                 <a href="{{ route('news.show', $trending->slug) }}" class="trending-item">
                                     <span class="trending-number">{{ $index + 1 }}</span>
@@ -825,7 +825,7 @@
     <div class="main-container">
         <!-- Featured News Grid -->
         <div class="featured-grid">
-            @foreach ($featureds->take(3) as $featured)
+            @foreach ($featureds->take(6) as $featured)
                 <a href="{{ route('news.show', $featured->slug) }}" class="featured-card">
                     <div class="featured-image-wrapper">
                         <span class="featured-badge">{{ $featured->category->title }}</span>
@@ -862,7 +862,7 @@
                 </div>
 
                 <div class="news-list">
-                    @foreach ($newsDownList as $item)
+                    @foreach ($news as $item)
                         <a href="{{ route('news.show', $item->slug) }}" class="news-item">
                             <div class="news-image-wrapper">
                                 <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}"
@@ -950,9 +950,9 @@
             <aside class="sidebar">
                 <!-- Secondary News Widget -->
                 <div class="sidebar-widget">
-                    <h3 class="widget-title">Pilihan Editor</h3>
+                    <h3 class="widget-title">News</h3>
                     <div>
-                        @foreach ($SecondaryDownlist as $secondary)
+                        @foreach ($newsDownList as $secondary)
                             <a href="{{ route('news.show', $secondary->slug) }}" class="sidebar-news-item">
                                 <img src="{{ asset('storage/' . $secondary->thumbnail) }}" alt="{{ $secondary->title }}"
                                     class="sidebar-image">
@@ -968,7 +968,7 @@
                 </div>
 
                 <!-- Popular Reading Widget -->
-                <div class="sidebar-widget">
+                {{-- <div class="sidebar-widget">
                     <h3 class="widget-title">Paling Banyak Dibaca</h3>
                     <div>
                         @foreach ($news->take(4) as $topNews)
@@ -984,7 +984,7 @@
                             </a>
                         @endforeach
                     </div>
-                </div>
+                </div> --}}
             </aside>
         </div>
     </div>

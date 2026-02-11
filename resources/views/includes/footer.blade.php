@@ -8,14 +8,14 @@
             <div class="footer-brand-section">
                 <div class="footer-logo">
                     <div class="logo-container">
-                        <img id="logo_footer" src="{{ asset('/asset/img/logo_fokuskito.png') }}" alt="Fokus Kito Logo">
+                        <img id="logo_footer" src="{{ asset('/asset/img/logo.png') }}" alt="Fokus Kito Logo">
                     </div>
                 </div>
                 <p class="footer-tagline">
                     Portal berita terpercaya yang menyajikan informasi terkini seputar Palembang dan Sumatera Selatan
                     dengan akurat dan berimbang.
                 </p>
-                <div class="social-media">
+                {{-- <div class="social-media">
                     <a href="#" class="social-icon" aria-label="Facebook">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -40,7 +40,7 @@
                                 d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                         </svg>
                     </a>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Quick Links Section -->
@@ -85,7 +85,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            <span>fokuskito@gmail.com</span>
+                            <span>peopleasknews@gmail.com</span>
                         </div>
                     </li>
                     <li>
@@ -132,8 +132,7 @@
                         <input type="email" placeholder="Masukkan email Anda" class="newsletter-input" required>
                         <button type="submit" class="newsletter-btn">
                             <span>BERLANGGANAN</span>
-                            <svg width="18" height="18" fill="none" stroke="currentColor"
-                                viewBox="0 0 24 24">
+                            <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                                     d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>

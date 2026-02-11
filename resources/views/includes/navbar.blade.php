@@ -7,7 +7,7 @@
             <!-- Logo Section -->
             <div class="logo-section">
                 <a href="{{ route('landing') }}" class="logo-link">
-                    <img id="logo_navbar" src="{{ asset('/asset/img/logo_fokuskito.png') }}" alt="Fokus Kito Logo">
+                    <img id="logo_navbar" src="{{ asset('/asset/img/logo.png') }}" alt="Fokus Kito Logo">
                 </a>
 
                 <!-- Mobile Menu Toggle -->
@@ -232,7 +232,7 @@
     .nav-wrapper {
         flex: 1;
         display: flex;
-        justify-content: center;
+        justify-content: start;
     }
 
     .nav-list {
