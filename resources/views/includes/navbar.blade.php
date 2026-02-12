@@ -7,7 +7,7 @@
             <!-- Logo Section -->
             <div class="logo-section">
                 <a href="{{ route('landing') }}" class="logo-link">
-                    <img id="logo_navbar" src="{{ asset('/asset/img/logo.png') }}" alt="Fokus Kito Logo">
+                    <img id="logo_navbar" src="{{ asset('/asset/img/peopleask.png') }}" alt="Fokus Kito Logo">
                 </a>
 
                 <!-- Mobile Menu Toggle -->
@@ -144,6 +144,7 @@
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
         position: relative;
+        height: 72px;
     }
 
     .navbar.scrolled {
@@ -170,13 +171,14 @@
         justify-content: space-between;
         padding: 1rem 0;
         gap: 2rem;
+        height: 60px;
     }
 
     /* Logo Section */
     .logo-section {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 40px;
     }
 
     .logo-link {
@@ -191,7 +193,7 @@
     }
 
     #logo_navbar {
-        height: 45px;
+        height: 100px;
         width: auto;
         display: block;
     }

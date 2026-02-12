@@ -8,7 +8,7 @@
             <div class="footer-brand-section">
                 <div class="footer-logo">
                     <div class="logo-container">
-                        <img id="logo_footer" src="{{ asset('/asset/img/logo.png') }}" alt="Fokus Kito Logo">
+                        <img id="logo_footer" src="{{ asset('/asset/img/peopleask.png') }}" alt="Fokus Kito Logo">
                     </div>
                 </div>
                 <p class="footer-tagline">
@@ -215,7 +215,7 @@
 
     .logo-container {
         background: white;
-        padding: 0.75rem 2rem;
+        padding: 0.75rem 1rem;
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -231,7 +231,7 @@
 
     #logo_footer {
         display: block;
-        max-height: 40px;
+        max-height: 60px;
         width: auto;
     }
 
